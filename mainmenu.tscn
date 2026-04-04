@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://x05beyk1k3ow"]
 
 [ext_resource type="Texture2D" uid="uid://c5ykm58akxr3e" path="res://ai_main_bg.png" id="1_cmhrf"]
+[ext_resource type="Script" uid="uid://der0frhoahd0f" path="res://mainmenu.gd" id="1_d2nv2"]
 
 [node name="Mainmenu" type="Control" unique_id=102182633]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_d2nv2")
 
 [node name="Background" type="TextureRect" parent="." unique_id=557775998]
 layout_mode = 0
@@ -19,24 +21,53 @@ offset_bottom = 1021.0
 texture = ExtResource("1_cmhrf")
 
 [node name="Title" type="RichTextLabel" parent="." unique_id=744079712]
-layout_mode = 0
-offset_left = 536.0
-offset_top = 169.0
-offset_right = 869.0
-offset_bottom = 276.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -235.5
+offset_right = 235.5
+offset_bottom = 107.0
+grow_horizontal = 2
 theme_override_font_sizes/normal_font_size = 64
-text = "Game Title"
+text = "Idle Action RPG"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=949265315]
+[node name="Panel" type="Panel" parent="." unique_id=2135750705]
 layout_mode = 0
-offset_left = 270.0
-offset_top = 292.0
-offset_right = 1027.0
-offset_bottom = 721.0
+offset_left = 457.0
+offset_top = 379.0
+offset_right = 888.0
+offset_bottom = 664.0
 
-[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=686441959]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=949265315]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -207.5
+offset_top = -134.5
+offset_right = 208.5
+offset_bottom = 127.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="Panel/VBoxContainer" unique_id=686441959]
 layout_mode = 2
 text = "Game Start"
+
+[node name="OptionsButton" type="Button" parent="Panel/VBoxContainer" unique_id=2051787485]
+layout_mode = 2
+text = "Options"
+
+[node name="ExitButton" type="Button" parent="Panel/VBoxContainer" unique_id=629516415]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="Panel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

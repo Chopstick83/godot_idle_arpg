@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cemm3nsladgpb"]
+
+[ext_resource type="Script" uid="uid://do1wqdb7wrj3l" path="res://Enemy/enemy.gd" id="1_dvde6"]
+[ext_resource type="Texture2D" uid="uid://cwcbp8x0fkkg7" path="res://Enemy/32c_monsters_128x128.png" id="2_p67tn"]
+
+[node name="Wolf" type="Node2D" unique_id=1357652553]
+script = ExtResource("1_dvde6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1618503000]
+texture = ExtResource("2_p67tn")
+region_enabled = true
+region_rect = Rect2(903, 1172, 115, 108)

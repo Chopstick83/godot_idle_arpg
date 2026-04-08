@@ -3,10 +3,20 @@
 [ext_resource type="Script" uid="uid://do1wqdb7wrj3l" path="res://Enemy/enemy.gd" id="1_6ksop"]
 [ext_resource type="Texture2D" uid="uid://cwcbp8x0fkkg7" path="res://Enemy/32c_monsters_128x128.png" id="1_abhn7"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ksop"]
+size = Vector2(70, 38)
+
 [node name="Slime" type="Node2D" unique_id=1357652553]
 script = ExtResource("1_6ksop")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1618503000]
+position = Vector2(0, -19)
 texture = ExtResource("1_abhn7")
 region_enabled = true
 region_rect = Rect2(799, 1114, 70, 38)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1089835394]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1290180496]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_6ksop")

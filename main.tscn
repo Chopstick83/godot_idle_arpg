@@ -1,72 +1,14 @@
 [gd_scene format=3 uid="uid://cd1gwb0mqh2jo"]
 
 [ext_resource type="Script" uid="uid://c0ug11ao6ehdm" path="res://main.gd" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://cbdllpmwv25ul" path="res://Vfx/Thunder/Thunder.png" id="2_h2yge"]
-[ext_resource type="Script" uid="uid://cr6oaaepu3vx1" path="res://Vfx/Thunder/thunder.gd" id="3_1bvp3"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nundx"]
-atlas = ExtResource("2_h2yge")
-region = Rect2(0, 0, 128, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ek8lt"]
-atlas = ExtResource("2_h2yge")
-region = Rect2(128, 0, 128, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ikvuv"]
-atlas = ExtResource("2_h2yge")
-region = Rect2(256, 0, 128, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xnopk"]
-atlas = ExtResource("2_h2yge")
-region = Rect2(384, 0, 128, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nmvt5"]
-atlas = ExtResource("2_h2yge")
-region = Rect2(512, 0, 128, 256)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_edvjq"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nundx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ek8lt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ikvuv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xnopk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nmvt5")
-}],
-"loop": true,
-"name": &"default",
-"speed": 15.0
-}]
-
-[sub_resource type="PackedScene" id="PackedScene_lquwl"]
-_bundled = {
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"id_paths": [],
-"names": PackedStringArray("Thunder", "Node2D", "AnimatedSprite2D", "sprite_frames", "frame_progress", "script"),
-"node_count": 2,
-"node_ids": PackedInt32Array(19877174, 254925430),
-"node_paths": [],
-"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 0, 0, 0, 0, 2, 2, -1, 3, 3, 0, 4, 1, 5, 2, 0),
-"variants": [SubResource("SpriteFrames_edvjq"), 0.5204692, ExtResource("3_1bvp3")],
-"version": 3
-}
+[ext_resource type="PackedScene" uid="uid://bub5nn2eedveb" path="res://Vfx/Hits/hits.tscn" id="2_0xm2m"]
+[ext_resource type="AudioStream" uid="uid://dtlwftvg8j46u" path="res://Sfx/hit05.mp3.wav" id="3_h2yge"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
 
 [node name="Main" type="Node2D" unique_id=2095724335]
 script = ExtResource("1_ig7tw")
-lightning_effect_scene = SubResource("PackedScene_lquwl")
+attack_effect_scene = ExtResource("2_0xm2m")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1743235871]
 
@@ -76,6 +18,10 @@ shape = SubResource("CircleShape2D_0xm2m")
 [node name="Timer" type="Timer" parent="." unique_id=869664556]
 wait_time = 0.5
 autostart = true
+
+[node name="AttackSoundPlayer" type="AudioStreamPlayer" parent="." unique_id=1320941039]
+stream = ExtResource("3_h2yge")
+volume_db = -15.0
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

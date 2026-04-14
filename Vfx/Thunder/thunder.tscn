@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://tq0ge43dhgda"]
 
-[ext_resource type="Script" uid="uid://cr6oaaepu3vx1" path="res://Vfx/Thunder/thunder.gd" id="1_nundx"]
+[ext_resource type="Script" uid="uid://cr6oaaepu3vx1" path="res://Vfx/vfx.gd" id="1_nundx"]
 [ext_resource type="Texture2D" uid="uid://cbdllpmwv25ul" path="res://Vfx/Thunder/Thunder.png" id="1_y6r5b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nundx"]

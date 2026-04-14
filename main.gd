@@ -3,6 +3,7 @@ extends Node2D
 @onready var timer: Timer = $Timer
 @onready var area_2d: Area2D = $Area2D
 @onready var collision_shape_2d: CollisionShape2D = $Area2D/CollisionShape2D
+@onready var attack_sound_player: AudioStreamPlayer = $AttackSoundPlayer
 
 var slime_resource = preload("res://Enemy/slime.tscn")
 var wolf_resource = preload("res://Enemy/wolf.tscn")
@@ -11,7 +12,7 @@ var stage_resource = [
 	slime_resource, wolf_resource
 ]
 
-@export var lightning_effect_scene: PackedScene # 인스펙터에서 번개 이펙트 씬 할당
+@export var attack_effect_scene: PackedScene # 인스펙터에서 공격 이펙트 씬 할당
 
 var enemies_in_area: Array[Node2D] = []
 var is_mouse_hovering: bool = false
@@ -29,7 +30,7 @@ func _physics_process(delta: float) -> void:
 	area_2d.global_position = current_mouse_pos
 
 func _ready() -> void:
-	var num_enemies = 100
+	var num_enemies = 10
 	collision_shape_2d.shape.radius = mouse_radius
 
 	var viewport_size = get_viewport_rect().size
@@ -51,14 +52,20 @@ func strike_enemies() -> void:
 		if not is_instance_valid(enemy):
 			continue 
 			
-		var effect = lightning_effect_scene.instantiate()
+		var effect = attack_effect_scene.instantiate()
 		
 		# 이펙트를 씬 트리에 추가 (적의 자식으로 넣으면 적이 죽을 때 이펙트도 같이 사라지므로, 보통은 현재 씬(최상위)에 추가)
 		get_tree().current_scene.add_child(effect)
 		
 		# 이펙트의 위치를 적의 위치로 설정
 		effect.global_position = enemy.global_position
-		effect.global_position.y -= 112 # 발 아래쪽 정렬
+		
+		# 공격 이펙트 추가 보정
+		effect.scale *= 0.6
+		#effect.global_position.y -= 10
+		
+		# 공격 사운드 처리
+		attack_sound_player.play()
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:

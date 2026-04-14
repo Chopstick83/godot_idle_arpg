@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bub5nn2eedveb"]
+
+[ext_resource type="PackedScene" uid="uid://ckvx7v0bcvpsv" path="res://Vfx/Hit3/hit3.tscn" id="1_auvyr"]
+
+[node name="Node2D" type="Node2D" unique_id=620353719]
+
+[node name="hit" parent="." unique_id=1971928662 instance=ExtResource("1_auvyr")]
+position = Vector2(0, -32)
+
+[node name="hit2" parent="." unique_id=1101078790 instance=ExtResource("1_auvyr")]
+position = Vector2(-52, 14)

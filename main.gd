@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 	area_2d.global_position = current_mouse_pos
 
 func _ready() -> void:
-	var num_enemies = 10
+	var num_enemies = 100
 	collision_shape_2d.shape.radius = mouse_radius
 
 	var viewport_size = get_viewport_rect().size
@@ -66,6 +66,9 @@ func strike_enemies() -> void:
 		
 		# 공격 사운드 처리
 		attack_sound_player.play()
+		
+		var attack_damage = 30
+		enemy.get_parent().enemy_damaged(attack_damage)
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:

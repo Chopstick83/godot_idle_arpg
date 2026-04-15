@@ -16,7 +16,24 @@ attack_effect_scene = ExtResource("2_0xm2m")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1900017044]
 shape = SubResource("CircleShape2D_0xm2m")
 
-[node name="Timer" type="Timer" parent="." unique_id=869664556]
+[node name="StageTimerProgressBar" type="ProgressBar" parent="." unique_id=1545677080]
+offset_right = 1279.0
+offset_bottom = 27.0
+value = 100.0
+show_percentage = false
+
+[node name="StageTimeLeft" type="Label" parent="StageTimerProgressBar" unique_id=2052682197]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "0123"
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=869664556]
 wait_time = 0.5
 autostart = true
 
@@ -31,6 +48,10 @@ volume_db = -10.0
 autoplay = true
 bus = &"BGM"
 
+[node name="StageTimer" type="Timer" parent="." unique_id=1353286837]
+one_shot = true
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="StageTimer" to="." method="_on_stage_timer_timeout"]

@@ -1,9 +1,13 @@
 extends Node2D
 
-@onready var timer: Timer = $Timer
+@onready var attack_timer: Timer = $AttackTimer
 @onready var area_2d: Area2D = $Area2D
 @onready var collision_shape_2d: CollisionShape2D = $Area2D/CollisionShape2D
 @onready var attack_sound_player: AudioStreamPlayer = $AttackSoundPlayer
+
+@onready var stage_timer: Timer = $StageTimer
+@onready var stage_timer_progress_bar: ProgressBar = $StageTimerProgressBar
+@onready var stage_time_left: Label = $StageTimerProgressBar/StageTimeLeft
 
 var slime_resource = preload("res://Enemy/slime.tscn")
 var wolf_resource = preload("res://Enemy/wolf.tscn")
@@ -24,6 +28,8 @@ func _draw() -> void:
 	draw_circle(current_mouse_pos, mouse_radius, Color.AQUA, false, 2)
 
 func _process(delta: float) -> void:
+	stage_timer_progress_bar.value = stage_timer.time_left
+	stage_time_left.text = "%05.2f" % stage_timer.time_left
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
@@ -39,11 +45,17 @@ func _ready() -> void:
 		enemy_instance.position = Vector2(randf_range(64, viewport_size.x - 64), randf_range(64, viewport_size.y - 64))
 		add_child(enemy_instance)
 
+	# Stage Timer
+	var wait_time = 10.0
+	stage_timer_progress_bar.max_value = wait_time
+	stage_timer_progress_bar.value = wait_time
+	stage_timer.start(wait_time)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		current_mouse_pos = get_global_mouse_position()
 
-func _on_timer_timeout() -> void:
+func _on_attack_timer_timeout() -> void:
 	strike_enemies()
 
 func strike_enemies() -> void:
@@ -79,3 +91,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if enemies_in_area.has(area):
 		enemies_in_area.erase(area)
+
+func _on_stage_timer_timeout() -> void:
+	print("Stage End")

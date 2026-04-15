@@ -23,10 +23,13 @@ autostart = true
 [node name="AttackSoundPlayer" type="AudioStreamPlayer" parent="." unique_id=1320941039]
 stream = ExtResource("3_h2yge")
 volume_db = -15.0
+bus = &"SFX"
 
 [node name="BgmPlayer" type="AudioStreamPlayer" parent="." unique_id=1218412712]
 stream = ExtResource("4_1bvp3")
+volume_db = -10.0
 autoplay = true
+bus = &"BGM"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

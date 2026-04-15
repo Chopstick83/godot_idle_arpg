@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ciw8ve4wkmlul"
+path="res://.godot/imported/The Last Encounter Short Loop.wav-3235e69323c44aecd3b17760edac95d6.sample"
+
+[deps]
+
+source_file="res://Bgm/The Last Encounter Short Loop.wav"
+dest_files=["res://.godot/imported/The Last Encounter Short Loop.wav-3235e69323c44aecd3b17760edac95d6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

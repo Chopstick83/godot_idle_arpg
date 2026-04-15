@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c0ug11ao6ehdm" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bub5nn2eedveb" path="res://Vfx/Hits/hits.tscn" id="2_0xm2m"]
 [ext_resource type="AudioStream" uid="uid://dtlwftvg8j46u" path="res://Sfx/hit05.mp3.wav" id="3_h2yge"]
+[ext_resource type="AudioStream" uid="uid://ciw8ve4wkmlul" path="res://Bgm/The Last Encounter Short Loop.wav" id="4_1bvp3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
 
@@ -22,6 +23,10 @@ autostart = true
 [node name="AttackSoundPlayer" type="AudioStreamPlayer" parent="." unique_id=1320941039]
 stream = ExtResource("3_h2yge")
 volume_db = -15.0
+
+[node name="BgmPlayer" type="AudioStreamPlayer" parent="." unique_id=1218412712]
+stream = ExtResource("4_1bvp3")
+autoplay = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

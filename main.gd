@@ -23,6 +23,8 @@ var is_mouse_hovering: bool = false
 const mouse_radius = 100
 var current_mouse_pos: Vector2
 
+var player_exp = 0
+
 # Debug
 func _draw() -> void:
 	draw_circle(current_mouse_pos, mouse_radius, Color.AQUA, false, 2)
@@ -43,6 +45,7 @@ func _ready() -> void:
 	for i in range(num_enemies):
 		var enemy_instance = stage_resource.pick_random().instantiate()
 		enemy_instance.position = Vector2(randf_range(64, viewport_size.x - 64), randf_range(64, viewport_size.y - 64))
+		enemy_instance.died.connect(get_exp)
 		add_child(enemy_instance)
 
 	# Stage Timer
@@ -82,6 +85,9 @@ func strike_enemies() -> void:
 		var attack_damage = 30
 		enemy.get_parent().enemy_damaged(attack_damage)
 
+func get_exp(exp: int):
+	player_exp += exp
+	print(player_exp)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if not enemies_in_area.has(area):

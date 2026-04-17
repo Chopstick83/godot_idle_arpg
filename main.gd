@@ -9,6 +9,9 @@ extends Node2D
 @onready var stage_timer_progress_bar: ProgressBar = $StageTimerProgressBar
 @onready var stage_time_left: Label = $StageTimerProgressBar/StageTimeLeft
 
+@onready var result_panel: Panel = $ResultPanel
+@onready var exp_label: Label = $ResultPanel/ExpLabel
+
 var slime_resource = preload("res://Enemy/slime.tscn")
 var wolf_resource = preload("res://Enemy/wolf.tscn")
 
@@ -27,7 +30,8 @@ var player_exp = 0
 
 # Debug
 func _draw() -> void:
-	draw_circle(current_mouse_pos, mouse_radius, Color.AQUA, false, 2)
+	if stage_timer.time_left > 0:
+		draw_circle(current_mouse_pos, mouse_radius, Color.AQUA, false, 2)
 
 func _process(delta: float) -> void:
 	stage_timer_progress_bar.value = stage_timer.time_left
@@ -47,9 +51,10 @@ func _ready() -> void:
 		enemy_instance.position = Vector2(randf_range(64, viewport_size.x - 64), randf_range(64, viewport_size.y - 64))
 		enemy_instance.died.connect(get_exp)
 		add_child(enemy_instance)
+		enemy_instance.add_to_group("spawned_enemies")
 
 	# Stage Timer
-	var wait_time = 10.0
+	var wait_time = 5.0
 	stage_timer_progress_bar.max_value = wait_time
 	stage_timer_progress_bar.value = wait_time
 	stage_timer.start(wait_time)
@@ -93,10 +98,17 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	if not enemies_in_area.has(area):
 		enemies_in_area.append(area)
 
-
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if enemies_in_area.has(area):
 		enemies_in_area.erase(area)
 
 func _on_stage_timer_timeout() -> void:
-	print("Stage End")
+	get_tree().call_group("spawned_enemies", "queue_free")
+	exp_label.text = "Earned Exp: %.0f" % player_exp
+	result_panel.show()
+
+func _on_battle_again_button_pressed() -> void:
+	get_tree().reload_current_scene()
+
+func _on_return_to_base_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://mainmenu.tscn")

@@ -33,6 +33,38 @@ offset_bottom = 23.0
 grow_horizontal = 2
 text = "0123"
 
+[node name="ResultPanel" type="Panel" parent="." unique_id=1517054293]
+visible = false
+z_index = 1
+offset_left = 152.0
+offset_top = 105.0
+offset_right = 1180.0
+offset_bottom = 668.0
+
+[node name="ExpLabel" type="Label" parent="ResultPanel" unique_id=1886291372]
+layout_mode = 0
+offset_left = 405.0
+offset_top = 180.0
+offset_right = 445.0
+offset_bottom = 203.0
+text = "Earned Exp: 000"
+
+[node name="BattleAgainButton" type="Button" parent="ResultPanel" unique_id=2088906899]
+layout_mode = 0
+offset_left = 404.0
+offset_top = 295.0
+offset_right = 632.0
+offset_bottom = 357.0
+text = "Battle Again"
+
+[node name="ReturnToBaseButton" type="Button" parent="ResultPanel" unique_id=292375110]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 399.0
+offset_right = 634.0
+offset_bottom = 461.0
+text = "Return To Base"
+
 [node name="AttackTimer" type="Timer" parent="." unique_id=869664556]
 wait_time = 0.5
 autostart = true
@@ -53,5 +85,7 @@ one_shot = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="pressed" from="ResultPanel/BattleAgainButton" to="." method="_on_battle_again_button_pressed"]
+[connection signal="pressed" from="ResultPanel/ReturnToBaseButton" to="." method="_on_return_to_base_button_pressed"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="StageTimer" to="." method="_on_stage_timer_timeout"]

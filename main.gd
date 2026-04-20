@@ -12,6 +12,9 @@ extends Node2D
 @onready var result_panel: Panel = $ResultPanel
 @onready var exp_label: Label = $ResultPanel/ExpLabel
 
+@onready var exp_progress_bar: ProgressBar = $ExpProgressBar
+@onready var exp_text: Label = $ExpProgressBar/ExpText
+
 var mummy_resource = preload("res://Enemy/mummy.tscn")
 var slime_resource = preload("res://Enemy/slime.tscn")
 var snake_resource = preload("res://Enemy/snake.tscn")
@@ -29,6 +32,7 @@ var is_mouse_hovering: bool = false
 const mouse_radius = 100
 var current_mouse_pos: Vector2
 
+var player_level = 1
 var player_exp = 0
 var wait_time = 5.0
 
@@ -46,10 +50,14 @@ func _physics_process(_delta: float) -> void:
 	area_2d.global_position = current_mouse_pos
 
 func _ready() -> void:
+	player_exp = 0
+	wait_time = 5.0
 	collision_shape_2d.shape.radius = mouse_radius
+	exp_progress_bar.max_value = 100
 
 	reset_enemies()
 	reset_timer(wait_time)
+	update_exp_text(0.0)
 
 func reset_enemies():
 	var num_enemies = 100
@@ -61,10 +69,10 @@ func reset_enemies():
 		add_child(enemy_instance)
 		enemy_instance.add_to_group("spawned_enemies")
 
-func reset_timer(wait_time: float):
-	stage_timer_progress_bar.max_value = wait_time
-	stage_timer_progress_bar.value = wait_time
-	stage_timer.start(wait_time)
+func reset_timer(_wait_time: float):
+	stage_timer_progress_bar.max_value = _wait_time
+	stage_timer_progress_bar.value = _wait_time
+	stage_timer.start(_wait_time)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -97,9 +105,24 @@ func strike_enemies() -> void:
 		var attack_damage = 30
 		enemy.get_parent().enemy_damaged(attack_damage)
 
-func get_exp(exp: int):
-	player_exp += exp
-	print(player_exp)
+func get_exp(_exp: int):
+	player_exp += _exp
+	if player_exp >= exp_progress_bar.max_value:
+		player_exp -= exp_progress_bar.max_value
+		player_level += 1
+		exp_progress_bar.max_value += 100
+		
+		update_exp_text(player_exp)
+
+	# 이 부분 적 사망시에 호출되는 시그널이라 tween과 update_text로 사용하지 않도록 수정 필요
+	var tween = create_tween()
+	tween.tween_property(exp_progress_bar, "value", player_exp, 0.1).set_trans(Tween.TRANS_SINE)
+	
+func _on_exp_progress_bar_value_changed(value: float) -> void:
+	update_exp_text(value)
+
+func update_exp_text(value):
+	exp_text.text = "Lv.%d - %d / %d" % [player_level, int(value), exp_progress_bar.max_value]
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if not enemies_in_area.has(area):

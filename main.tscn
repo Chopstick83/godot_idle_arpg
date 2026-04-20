@@ -33,6 +33,24 @@ offset_bottom = 23.0
 grow_horizontal = 2
 text = "0123"
 
+[node name="ExpProgressBar" type="ProgressBar" parent="." unique_id=100949832]
+offset_top = 692.0
+offset_right = 1279.0
+offset_bottom = 719.0
+step = 1.0
+show_percentage = false
+
+[node name="ExpText" type="Label" parent="ExpProgressBar" unique_id=1940414960]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "0/10000"
+
 [node name="ResultPanel" type="Panel" parent="." unique_id=1517054293]
 visible = false
 z_index = 1
@@ -85,6 +103,7 @@ bus = &"BGM"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="value_changed" from="ExpProgressBar" to="." method="_on_exp_progress_bar_value_changed"]
 [connection signal="pressed" from="ResultPanel/ContinueBattleButton" to="." method="_on_continue_battle_button_pressed"]
 [connection signal="pressed" from="ResultPanel/ReturnToBaseButton" to="." method="_on_return_to_base_button_pressed"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

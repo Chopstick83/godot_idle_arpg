@@ -12,11 +12,14 @@ extends Node2D
 @onready var result_panel: Panel = $ResultPanel
 @onready var exp_label: Label = $ResultPanel/ExpLabel
 
+var mummy_resource = preload("res://Enemy/mummy.tscn")
 var slime_resource = preload("res://Enemy/slime.tscn")
+var snake_resource = preload("res://Enemy/snake.tscn")
+var spider_resource = preload("res://Enemy/spider.tscn")
 var wolf_resource = preload("res://Enemy/wolf.tscn")
 
 var stage_resource = [
-	slime_resource, wolf_resource
+	mummy_resource, slime_resource, snake_resource, spider_resource, wolf_resource
 ]
 
 @export var attack_effect_scene: PackedScene # 인스펙터에서 공격 이펙트 씬 할당
@@ -34,12 +37,12 @@ func _draw() -> void:
 	if stage_timer.time_left > 0:
 		draw_circle(current_mouse_pos, mouse_radius, Color.AQUA, false, 2)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	stage_timer_progress_bar.value = stage_timer.time_left
 	stage_time_left.text = "%05.2f" % stage_timer.time_left
 	queue_redraw()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	area_2d.global_position = current_mouse_pos
 
 func _ready() -> void:
@@ -74,7 +77,7 @@ func strike_enemies() -> void:
 	for enemy in enemies_in_area:
 		# 적이 도중에 삭제되었을(죽었을) 경우를 대비한 안전 장치
 		if not is_instance_valid(enemy):
-			continue 
+			continue
 			
 		var effect = attack_effect_scene.instantiate()
 		

@@ -27,6 +27,7 @@ const mouse_radius = 100
 var current_mouse_pos: Vector2
 
 var player_exp = 0
+var wait_time = 5.0
 
 # Debug
 func _draw() -> void:
@@ -42,9 +43,13 @@ func _physics_process(delta: float) -> void:
 	area_2d.global_position = current_mouse_pos
 
 func _ready() -> void:
-	var num_enemies = 100
 	collision_shape_2d.shape.radius = mouse_radius
 
+	reset_enemies()
+	reset_timer(wait_time)
+
+func reset_enemies():
+	var num_enemies = 100
 	var viewport_size = get_viewport_rect().size
 	for i in range(num_enemies):
 		var enemy_instance = stage_resource.pick_random().instantiate()
@@ -53,11 +58,11 @@ func _ready() -> void:
 		add_child(enemy_instance)
 		enemy_instance.add_to_group("spawned_enemies")
 
-	# Stage Timer
-	var wait_time = 5.0
+func reset_timer(wait_time: float):
 	stage_timer_progress_bar.max_value = wait_time
 	stage_timer_progress_bar.value = wait_time
 	stage_timer.start(wait_time)
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -107,8 +112,10 @@ func _on_stage_timer_timeout() -> void:
 	exp_label.text = "Earned Exp: %.0f" % player_exp
 	result_panel.show()
 
-func _on_battle_again_button_pressed() -> void:
-	get_tree().reload_current_scene()
+func _on_continue_battle_button_pressed() -> void:
+	result_panel.hide()
+	reset_enemies()
+	reset_timer(wait_time)
 
 func _on_return_to_base_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://mainmenu.tscn")
+	get_tree().change_scene_to_file("res://SkillTree/skill_tree.tscn")

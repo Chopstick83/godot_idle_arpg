@@ -49,13 +49,13 @@ offset_right = 445.0
 offset_bottom = 203.0
 text = "Earned Exp: 000"
 
-[node name="BattleAgainButton" type="Button" parent="ResultPanel" unique_id=2088906899]
+[node name="ContinueBattleButton" type="Button" parent="ResultPanel" unique_id=2088906899]
 layout_mode = 0
 offset_left = 404.0
 offset_top = 295.0
 offset_right = 632.0
 offset_bottom = 357.0
-text = "Battle Again"
+text = "Continue Battle"
 
 [node name="ReturnToBaseButton" type="Button" parent="ResultPanel" unique_id=292375110]
 layout_mode = 0
@@ -85,7 +85,7 @@ bus = &"BGM"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
-[connection signal="pressed" from="ResultPanel/BattleAgainButton" to="." method="_on_battle_again_button_pressed"]
+[connection signal="pressed" from="ResultPanel/ContinueBattleButton" to="." method="_on_continue_battle_button_pressed"]
 [connection signal="pressed" from="ResultPanel/ReturnToBaseButton" to="." method="_on_return_to_base_button_pressed"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="StageTimer" to="." method="_on_stage_timer_timeout"]

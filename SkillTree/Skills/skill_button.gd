@@ -14,6 +14,7 @@ var level: int = 0:
 	set(value):
 		level = value
 		label.text = str(level) + "/" + str(max_level)
+		SkillButtonTooltip.ChangeLevel(level)
 
 func _ready() -> void:
 	if get_parent() is SkillNode:
@@ -61,3 +62,9 @@ func _on_gui_input(event: InputEvent) -> void:
 						if skill is SkillNode:
 							skill.disabled = true
 					line_2d.default_color = default_color
+
+func _on_mouse_entered() -> void:
+	SkillButtonTooltip.ShowPopup(Rect2(Vector2(global_position), Vector2(size)), level)
+
+func _on_mouse_exited() -> void:
+	SkillButtonTooltip.HidePopup()

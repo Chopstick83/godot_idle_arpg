@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cvcdchobqq40m"]
 
+[ext_resource type="Script" uid="uid://b3snb616hodoh" path="res://SkillTree/skill_tree.gd" id="1_cvx1l"]
 [ext_resource type="PackedScene" uid="uid://lo5p2xb6pgu8" path="res://SkillTree/Skills/skill_button.tscn" id="1_qyskh"]
 
 [node name="SkillTree" type="Control" unique_id=1446048633]
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_cvx1l")
 
 [node name="Panel" type="Panel" parent="." unique_id=2136069897]
 layout_mode = 1
@@ -40,3 +42,13 @@ offset_top = -58.0
 offset_right = 80.0
 offset_bottom = -18.0
 disabled = true
+
+[node name="BattleStartButton" type="Button" parent="." unique_id=1847335580]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 544.0
+offset_right = 531.0
+offset_bottom = 609.0
+text = "Battle Start"
+
+[connection signal="pressed" from="BattleStartButton" to="." method="_on_battle_start_button_pressed"]

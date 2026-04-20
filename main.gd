@@ -62,7 +62,6 @@ func reset_timer(wait_time: float):
 	stage_timer_progress_bar.max_value = wait_time
 	stage_timer_progress_bar.value = wait_time
 	stage_timer.start(wait_time)
-	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:

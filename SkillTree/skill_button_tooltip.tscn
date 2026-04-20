@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bm4j6ql6cgofh"]
+[gd_scene format=3 uid="uid://cahh8grgqqwlh"]
 
 [ext_resource type="Script" uid="uid://d2g6m1kpletch" path="res://SkillTree/skill_button_tooltip.gd" id="1_idoom"]
 
@@ -9,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_idoom")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=5038394]

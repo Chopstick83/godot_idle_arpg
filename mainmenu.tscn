@@ -36,14 +36,14 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="." unique_id=2135750705]
+[node name="MainMenu" type="Panel" parent="." unique_id=2135750705]
 layout_mode = 0
 offset_left = 457.0
 offset_top = 379.0
 offset_right = 888.0
 offset_bottom = 664.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=949265315]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu" unique_id=949265315]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -57,17 +57,53 @@ offset_bottom = 127.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StartButton" type="Button" parent="Panel/VBoxContainer" unique_id=686441959]
+[node name="StartButton" type="Button" parent="MainMenu/VBoxContainer" unique_id=686441959]
 layout_mode = 2
 text = "Game Start"
 
-[node name="OptionsButton" type="Button" parent="Panel/VBoxContainer" unique_id=2051787485]
+[node name="OptionsButton" type="Button" parent="MainMenu/VBoxContainer" unique_id=2051787485]
 layout_mode = 2
 text = "Options"
 
-[node name="ExitButton" type="Button" parent="Panel/VBoxContainer" unique_id=629516415]
+[node name="ExitButton" type="Button" parent="MainMenu/VBoxContainer" unique_id=629516415]
 layout_mode = 2
 text = "Exit"
 
-[connection signal="pressed" from="Panel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[node name="Options" type="Panel" parent="." unique_id=1736505695]
+visible = false
+layout_mode = 0
+offset_left = 457.0
+offset_top = 379.0
+offset_right = 888.0
+offset_bottom = 664.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Options" unique_id=2131800705]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -207.5
+offset_top = -134.5
+offset_right = 208.5
+offset_bottom = 127.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LanguageLabel" type="Label" parent="Options/VBoxContainer" unique_id=968204043]
+layout_mode = 2
+text = "Language"
+
+[node name="LanguageOptions" type="OptionButton" parent="Options/VBoxContainer" unique_id=807875724]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="Options/VBoxContainer" unique_id=1879153084]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="MainMenu/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="item_selected" from="Options/VBoxContainer/LanguageOptions" to="." method="_on_language_options_item_selected"]
+[connection signal="pressed" from="Options/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -6,6 +6,7 @@ class_name SkillNode
 @onready var line_2d: Line2D = $Line2D
 
 @export var max_level: int = 4
+#@export var title_key: String 다국어?
 
 const default_color = Color("#383838")
 const lined_color = Color("ffff3f")

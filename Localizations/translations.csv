@@ -1,0 +1,9 @@
+KEYS,ko_KR,en_US,fr_FR,es_ES,de_DE,it_IT,ja_JP,zh_CN,zh_TW,pt_BR,pt_PT,ru_RU,el_GR,tr_TR,da_DK,no_NB,sv_SE,nl_NL,pl_PL,fi_FI,cs_CZ,hu_HU,ro_RO,th_TH
+STRING ID,KOREAN,ENGLISH,FRENCH,SPANISH,GERMAN,ITALIAN,JAPANESE,SIMPLIFIED CHINESE,TRADITIONAL CHINESE,Portuguese (Brazil),PORTUGUESE (PT),RUSSIAN,GREEK,TURKISH,DANISH,NORWEGIAN,SWEDISH,DUTCH,POLISH,FINNISH,CZECH,HUNGARIAN,ROMANIAN,THAI
+LANGUAGE_CODE,koKR,enUS enGB,frFR,esES esAR esMX,deDE deCH deAT,itIT itCH,jaJP,zhCN zhSG,zhTW zhHK zhMO,ptBR,ptPT,ruRU,elGR,trTR,daDK,noNB,svSE,nlNL,plPL,fiFI,csCZ,huHU,roRO,thTH
+LANGUAGE,한국어,English,Français,Español,Deutsch,Italiano,日本語,简体中文,繁體中文,Português,,РУССКИЙ,,,,,,,,,,,,
+LANGUAGE_EN,Korean,English,French,Spanish,German,Italian ,Japanese,Simplified Chinese,Traditional Chinese,Portuguese (Brazil),Portuguese,Russian,Greek,Turkish,Danish,Norwegian,Swedish,Dutch,Polish,Finnish,Czech,Hungarian,Romanian,Thai
+LANGUAGE_DIRECTION,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr
+START_GAME,게임 시작,Start Game,,,,,,,,,,,,,,,,,,,,,,
+OPTIONS,설정,Options,,,,,,,,,,,,,,,,,,,,,,
+EXIT_GAME,게임 종료,Exit,,,,,,,,,,,,,,,,,,,,,,

@@ -24,6 +24,10 @@ SkillButtonTooltip="*uid://cahh8grgqqwlh"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://Localizations/translations.en_US.translation", "res://Localizations/translations.ko_KR.translation")
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

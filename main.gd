@@ -34,7 +34,6 @@ var current_mouse_pos: Vector2
 
 var user_save_data: UserSaveData
 
-# Debug
 func _draw() -> void:
 	if stage_timer.time_left > 0:
 		draw_circle(current_mouse_pos, mouse_radius, Color.AQUA, false, 2)

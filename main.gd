@@ -32,9 +32,7 @@ var is_mouse_hovering: bool = false
 const mouse_radius = 100
 var current_mouse_pos: Vector2
 
-var player_level = 1
-var player_exp = 0
-var wait_time = 5.0
+var user_save_data: UserSaveData
 
 # Debug
 func _draw() -> void:
@@ -43,21 +41,21 @@ func _draw() -> void:
 
 func _process(_delta: float) -> void:
 	stage_timer_progress_bar.value = stage_timer.time_left
-	stage_time_left.text = "%05.2f" % stage_timer.time_left
+	stage_time_left.text = "%05.2fs" % stage_timer.time_left
 	queue_redraw()
 
 func _physics_process(_delta: float) -> void:
 	area_2d.global_position = current_mouse_pos
 
 func _ready() -> void:
-	player_exp = 0
-	wait_time = 5.0
+	user_save_data = SaveManager.load_game()
+	
 	collision_shape_2d.shape.radius = mouse_radius
-	exp_progress_bar.max_value = 100
+	exp_progress_bar.max_value = user_save_data.max_xp
 
 	reset_enemies()
-	reset_timer(wait_time)
-	update_exp_text(0.0)
+	reset_timer(user_save_data.wait_time)
+	update_exp_text(user_save_data.xp)
 
 func reset_enemies():
 	var num_enemies = 100
@@ -106,23 +104,24 @@ func strike_enemies() -> void:
 		enemy.get_parent().enemy_damaged(attack_damage)
 
 func get_exp(_exp: int):
-	player_exp += _exp
-	if player_exp >= exp_progress_bar.max_value:
-		player_exp -= exp_progress_bar.max_value
-		player_level += 1
+	user_save_data.xp += _exp
+	if user_save_data.xp >= exp_progress_bar.max_value:
+		user_save_data.xp -= exp_progress_bar.max_value
+		user_save_data.level += 1
+		user_save_data.max_xp += 100
 		exp_progress_bar.max_value += 100
 		
-		update_exp_text(player_exp)
+		update_exp_text(user_save_data.xp)
 
 	# 이 부분 적 사망시에 호출되는 시그널이라 tween과 update_text로 사용하지 않도록 수정 필요
 	var tween = create_tween()
-	tween.tween_property(exp_progress_bar, "value", player_exp, 0.1).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(exp_progress_bar, "value", user_save_data.xp, 0.1).set_trans(Tween.TRANS_SINE)
 	
 func _on_exp_progress_bar_value_changed(value: float) -> void:
 	update_exp_text(value)
 
 func update_exp_text(value):
-	exp_text.text = "Lv.%d - %d / %d" % [player_level, int(value), exp_progress_bar.max_value]
+	exp_text.text = "Lv.%d - %d / %d" % [user_save_data.level, int(value), exp_progress_bar.max_value]
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if not enemies_in_area.has(area):
@@ -134,13 +133,14 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 
 func _on_stage_timer_timeout() -> void:
 	get_tree().call_group("spawned_enemies", "queue_free")
-	exp_label.text = "Earned Exp: %.0f" % player_exp
+	exp_label.text = "Earned Exp: %.0f" % user_save_data.xp
 	result_panel.show()
+	SaveManager.save_game(user_save_data)
 
 func _on_continue_battle_button_pressed() -> void:
 	result_panel.hide()
 	reset_enemies()
-	reset_timer(wait_time)
+	reset_timer(user_save_data.wait_time)
 
 func _on_return_to_base_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://SkillTree/skill_tree.tscn")

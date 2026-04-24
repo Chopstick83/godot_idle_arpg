@@ -14,12 +14,16 @@ extends Control
 const LANGUAGE_KEY = ["en_US", "ko_KR"]
 
 func _ready() -> void:
+	update_ui_text()
+	for key in LANGUAGE_KEY:
+		language_options.add_item(tr("LANGUAGE_NAME_" + key.to_upper()))
+
+func update_ui_text():
 	start_button.text = tr("START_GAME")
 	options_button.text = tr("OPTIONS")
 	exit_button.text = tr("EXIT_GAME")
-
-	for key in LANGUAGE_KEY:
-		language_options.add_item(key)
+	language_label.text = tr("LANGUAGE")
+	back_button.text = tr("BACK")	
 
 func _on_start_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://SkillTree/skill_tree.tscn")
@@ -37,3 +41,4 @@ func _on_back_button_pressed() -> void:
 
 func _on_language_options_item_selected(index: int) -> void:
 	TranslationServer.set_locale(LANGUAGE_KEY[index])
+	update_ui_text()

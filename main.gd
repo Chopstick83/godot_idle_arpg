@@ -50,11 +50,12 @@ func _ready() -> void:
 	user_save_data = SaveManager.load_game()
 	
 	collision_shape_2d.shape.radius = mouse_radius
+
 	exp_progress_bar.max_value = user_save_data.max_xp
+	exp_progress_bar.value = user_save_data.xp
 
 	reset_enemies()
 	reset_timer(user_save_data.wait_time)
-	update_exp_text(user_save_data.xp)
 
 func reset_enemies():
 	var num_enemies = 100

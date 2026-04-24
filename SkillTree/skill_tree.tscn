@@ -20,6 +20,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ReturnToMainButton" type="Button" parent="Panel" unique_id=1756834206]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 75.0
+text = "Return to Main"
+
 [node name="ExtendTime" parent="Panel" unique_id=1047147698 instance=ExtResource("1_qyskh")]
 layout_mode = 0
 offset_left = 423.0
@@ -68,10 +76,11 @@ disabled = true
 
 [node name="BattleStartButton" type="Button" parent="." unique_id=1847335580]
 layout_mode = 0
-offset_left = 328.0
-offset_top = 544.0
-offset_right = 531.0
-offset_bottom = 609.0
-text = "Battle Start"
+offset_left = 571.0
+offset_top = 628.0
+offset_right = 774.0
+offset_bottom = 693.0
+text = "Start Battle"
 
+[connection signal="pressed" from="Panel/ReturnToMainButton" to="." method="_on_return_to_main_button_pressed"]
 [connection signal="pressed" from="BattleStartButton" to="." method="_on_battle_start_button_pressed"]

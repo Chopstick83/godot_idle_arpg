@@ -12,6 +12,8 @@ class_name SkillNode
 const default_color = Color("#383838")
 const lined_color = Color("ffff3f")
 
+signal save_requested
+
 var level: int = 0:
 	set(value):
 		level = value
@@ -39,6 +41,7 @@ func _on_pressed() -> void:
 		# 현재는 부모 레벨 1만 찍혀도 하위 찍기 가능
 		if skill is SkillNode and level == 1:
 			skill.disabled = false
+			save_requested.emit()
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -64,6 +67,7 @@ func _on_gui_input(event: InputEvent) -> void:
 						if skill is SkillNode:
 							skill.disabled = true
 					line_2d.default_color = default_color
+			save_requested.emit()
 
 func _on_mouse_entered() -> void:
 	SkillButtonTooltip.ShowPopup(Rect2(Vector2(global_position), Vector2(size)), level, title_key, desc_key)

@@ -25,7 +25,10 @@ func _ready() -> void:
 		idx = 0
 	if language_options.selected != idx:
 		language_options.selected = idx
-		update_ui_text()
+
+	var lang = LANGUAGE_KEY[idx]
+	TranslationServer.set_locale(lang)
+	update_ui_text()
 
 func update_ui_text():
 	start_button.text = tr("START_GAME")
@@ -49,8 +52,9 @@ func _on_back_button_pressed() -> void:
 	main_menu.show()
 
 func _on_language_options_item_selected(index: int) -> void:
-	TranslationServer.set_locale(LANGUAGE_KEY[index])
+	var lang = LANGUAGE_KEY[index]
+	TranslationServer.set_locale(lang)
 
 	update_ui_text()
-	settings_data.language = LANGUAGE_KEY[index]
+	settings_data.language = lang
 	SaveManager.save_settings(settings_data)

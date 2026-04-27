@@ -6,7 +6,8 @@ class_name SkillNode
 @onready var line_2d: Line2D = $Line2D
 
 @export var max_level: int = 4
-#@export var title_key: String 다국어?
+@export var title_key: String
+@export var desc_key: String
 
 const default_color = Color("#383838")
 const lined_color = Color("ffff3f")
@@ -65,7 +66,7 @@ func _on_gui_input(event: InputEvent) -> void:
 					line_2d.default_color = default_color
 
 func _on_mouse_entered() -> void:
-	SkillButtonTooltip.ShowPopup(Rect2(Vector2(global_position), Vector2(size)), level)
+	SkillButtonTooltip.ShowPopup(Rect2(Vector2(global_position), Vector2(size)), level, title_key, desc_key)
 
 func _on_mouse_exited() -> void:
 	SkillButtonTooltip.HidePopup()

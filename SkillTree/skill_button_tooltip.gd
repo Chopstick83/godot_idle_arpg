@@ -1,9 +1,9 @@
 extends Control
 
 @onready var title_label: Label = $PanelContainer/VBoxContainer/TitleLabel
-@onready var info_label: Label = $PanelContainer/VBoxContainer/InfoLabel
+@onready var desc_label: Label = $PanelContainer/VBoxContainer/DescLabel
 
-func ShowPopup(slot: Rect2, level: int):
+func ShowPopup(slot: Rect2, level: int, title_key: String, desc_key: String):
 	# 항상 위에 렌더링
 	%PanelContainer.z_index = 999
 	
@@ -18,6 +18,9 @@ func ShowPopup(slot: Rect2, level: int):
 	
 	ChangeLevel(level)
 	
+	title_label.text = tr(title_key)
+	desc_label.text = tr(desc_key)
+	
 	%PanelContainer.position = Vector2(slot.position + correction)
 	%PanelContainer.show()
 	
@@ -27,7 +30,7 @@ func HidePopup():
 func ChangeLevel(level: int):
 	if level == 0:
 		title_label.add_theme_color_override("font_color", Color("#333333"))
-		info_label.add_theme_color_override("font_color", Color("#333333"))
+		desc_label.add_theme_color_override("font_color", Color("#333333"))
 	else:
 		title_label.add_theme_color_override("font_color", Color("#ffffff"))
-		info_label.add_theme_color_override("font_color", Color("#ffffff"))
+		desc_label.add_theme_color_override("font_color", Color("#ffffff"))

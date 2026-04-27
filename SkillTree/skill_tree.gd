@@ -4,6 +4,9 @@ class_name SkillTree
 @onready var panel: Panel = $Panel
 @onready var extend_time: SkillNode = $Panel/ExtendTime
 
+@onready var return_to_main_button: Button = $Panel/ReturnToMainButton
+@onready var battle_start_button: Button = $BattleStartButton
+
 var user_tree_data: UserTreeData
 
 func _on_return_to_main_button_pressed() -> void:
@@ -13,6 +16,9 @@ func _on_battle_start_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://main.tscn")
 
 func _ready() -> void:
+	return_to_main_button.text = tr("RETURN_TO_MAIN")
+	battle_start_button.text = tr("START_BATTLE")
+
 	for child in panel.get_children():
 		if child is SkillNode:
 			child.save_requested.connect(_on_child_save_requested)

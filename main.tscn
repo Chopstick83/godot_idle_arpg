@@ -65,7 +65,7 @@ offset_left = 405.0
 offset_top = 180.0
 offset_right = 445.0
 offset_bottom = 203.0
-text = "Earned Exp: 000"
+text = "Earned Exp:"
 
 [node name="ContinueBattleButton" type="Button" parent="ResultPanel" unique_id=2088906899]
 layout_mode = 0

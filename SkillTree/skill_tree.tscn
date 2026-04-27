@@ -26,7 +26,6 @@ offset_left = 7.0
 offset_top = 10.0
 offset_right = 210.0
 offset_bottom = 75.0
-text = "Return to Main"
 
 [node name="ExtendTime" parent="Panel" unique_id=1047147698 instance=ExtResource("1_qyskh")]
 layout_mode = 0
@@ -92,7 +91,6 @@ offset_left = 571.0
 offset_top = 628.0
 offset_right = 774.0
 offset_bottom = 693.0
-text = "Start Battle"
 
 [connection signal="pressed" from="Panel/ReturnToMainButton" to="." method="_on_return_to_main_button_pressed"]
 [connection signal="pressed" from="BattleStartButton" to="." method="_on_battle_start_button_pressed"]

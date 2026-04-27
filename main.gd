@@ -11,6 +11,8 @@ extends Node2D
 
 @onready var result_panel: Panel = $ResultPanel
 @onready var exp_label: Label = $ResultPanel/ExpLabel
+@onready var continue_battle_button: Button = $ResultPanel/ContinueBattleButton
+@onready var return_to_base_button: Button = $ResultPanel/ReturnToBaseButton
 
 @onready var exp_progress_bar: ProgressBar = $ExpProgressBar
 @onready var exp_text: Label = $ExpProgressBar/ExpText
@@ -32,6 +34,7 @@ var is_mouse_hovering: bool = false
 const mouse_radius = 100
 var current_mouse_pos: Vector2
 
+var exp_label_base: String
 var user_save_data: UserSaveData
 
 func _draw() -> void:
@@ -47,6 +50,10 @@ func _physics_process(_delta: float) -> void:
 	area_2d.global_position = current_mouse_pos
 
 func _ready() -> void:
+	continue_battle_button.text = tr("CONTINUE_BATTLE")
+	return_to_base_button.text = tr("RETURN_TO_BASE")
+	exp_label_base = tr("EARNED_EXP")
+	
 	user_save_data = SaveManager.load_game()
 	
 	collision_shape_2d.shape.radius = mouse_radius
@@ -133,7 +140,7 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 
 func _on_stage_timer_timeout() -> void:
 	get_tree().call_group("spawned_enemies", "queue_free")
-	exp_label.text = "Earned Exp: %.0f" % user_save_data.xp
+	exp_label.text = exp_label_base.format([int(user_save_data.xp)])
 	result_panel.show()
 	SaveManager.save_game(user_save_data)
 

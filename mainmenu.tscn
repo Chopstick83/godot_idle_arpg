@@ -73,7 +73,7 @@ text = "Exit"
 visible = false
 layout_mode = 0
 offset_left = 457.0
-offset_top = 379.0
+offset_top = 250.0
 offset_right = 888.0
 offset_bottom = 664.0
 
@@ -85,11 +85,46 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -207.5
-offset_top = -134.5
+offset_top = -201.0
 offset_right = 208.5
-offset_bottom = 127.5
+offset_bottom = 206.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VolumeLabel" type="Label" parent="Options/VBoxContainer" unique_id=740983638]
+layout_mode = 2
+text = "Volume"
+
+[node name="BgmVolumeLabel" type="Label" parent="Options/VBoxContainer" unique_id=1848124963]
+layout_mode = 2
+text = "BGM"
+
+[node name="BgmVolumeHSlider" type="HSlider" parent="Options/VBoxContainer" unique_id=5984208]
+layout_mode = 2
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="SfxVolumeLabel" type="Label" parent="Options/VBoxContainer" unique_id=1283447483]
+layout_mode = 2
+text = "SFX"
+
+[node name="SfxVolumeHSlider" type="HSlider" parent="Options/VBoxContainer" unique_id=1491327608]
+layout_mode = 2
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="ResolutionLabel" type="Label" parent="Options/VBoxContainer" unique_id=1465025817]
+layout_mode = 2
+text = "Resolution"
+
+[node name="ResolutionOptions" type="OptionButton" parent="Options/VBoxContainer" unique_id=1087181709]
+layout_mode = 2
+
+[node name="FullScreenCheckBox" type="CheckBox" parent="Options/VBoxContainer" unique_id=345828864]
+layout_mode = 2
+text = "Full Screen"
 
 [node name="LanguageLabel" type="Label" parent="Options/VBoxContainer" unique_id=968204043]
 layout_mode = 2

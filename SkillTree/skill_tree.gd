@@ -19,10 +19,14 @@ func _ready() -> void:
 	return_to_main_button.text = tr("RETURN_TO_MAIN")
 	battle_start_button.text = tr("START_BATTLE")
 
-	for child in panel.get_children():
-		if child is SkillNode:
-			child.save_requested.connect(_on_child_save_requested)
 	user_tree_data = SaveManager.load_skill()
+	var skill_nodes = panel.find_children("*", "SkillNode", true, false)
+	for child in skill_nodes:
+		child.save_requested.connect(_on_child_save_requested)
+		if user_tree_data.skills.get(child.id):
+			child.level = user_tree_data.skills[child.id]
 
-func _on_child_save_requested():
+func _on_child_save_requested(id: String, level: int):
+	if id:
+		user_tree_data.skills[id] = level
 	SaveManager.save_skill(user_tree_data)

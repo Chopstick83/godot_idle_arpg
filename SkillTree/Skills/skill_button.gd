@@ -6,19 +6,31 @@ class_name SkillNode
 @onready var line_2d: Line2D = $Line2D
 
 @export var max_level: int = 4
+@export var id: String
 @export var title_key: String
 @export var desc_key: String
 
 const default_color = Color("#383838")
 const lined_color = Color("ffff3f")
 
-signal save_requested
+signal save_requested(id: String, level: int)
 
 var level: int = 0:
 	set(value):
 		level = value
 		label.text = str(level) + "/" + str(max_level)
 		SkillButtonTooltip.ChangeLevel(level)
+		if level > 0:
+			panel.show_behind_parent = true
+		else:
+			panel.show_behind_parent = false
+
+		for skill in get_children():
+			if skill is SkillNode:
+				if level == 0:
+					skill.disabled = true
+				else:
+					skill.disabled = false
 
 func _ready() -> void:
 	if get_parent() is SkillNode:
@@ -29,8 +41,10 @@ func _ready() -> void:
 	level = 0
 
 func _on_pressed() -> void:
-	level = min(level+1, max_level)
-	panel.show_behind_parent = true
+	if level >= max_level:
+		return
+
+	level = level+1
 	
 	# 하위 찍었을 때 연결 선 색상 변경
 	line_2d.default_color = lined_color
@@ -41,7 +55,8 @@ func _on_pressed() -> void:
 		# 현재는 부모 레벨 1만 찍혀도 하위 찍기 가능
 		if skill is SkillNode and level == 1:
 			skill.disabled = false
-			save_requested.emit()
+
+	save_requested.emit(id, level)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -59,15 +74,13 @@ func _on_gui_input(event: InputEvent) -> void:
 							break
 				if all_child_empty:
 					return
-					
-				level = max(level-1, 0)
-				if level == 0:
-					panel.show_behind_parent = false
-					for skill in child_skills:
-						if skill is SkillNode:
-							skill.disabled = true
-					line_2d.default_color = default_color
-			save_requested.emit()
+
+				level = 0
+				for skill in child_skills:
+					if skill is SkillNode:
+						skill.disabled = true
+				line_2d.default_color = default_color
+			save_requested.emit(id, level)
 
 func _on_mouse_entered() -> void:
 	SkillButtonTooltip.ShowPopup(Rect2(Vector2(global_position), Vector2(size)), level, title_key, desc_key)

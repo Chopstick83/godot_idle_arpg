@@ -11,6 +11,9 @@ extends Control
 @onready var main_menu: Panel = $MainMenu
 @onready var options: Panel = $Options
 
+@onready var bgm_volume_h_slider: HSlider = $Options/VBoxContainer/BgmVolumeHSlider
+@onready var sfx_volume_h_slider: HSlider = $Options/VBoxContainer/SfxVolumeHSlider
+
 const LANGUAGE_KEY = ["en_US", "ko_KR"]
 
 var settings_data: SettingData
@@ -25,6 +28,9 @@ func _ready() -> void:
 		idx = 0
 	if language_options.selected != idx:
 		language_options.selected = idx
+
+	bgm_volume_h_slider.set_value_no_signal(settings_data.bgm)
+	sfx_volume_h_slider.set_value_no_signal(settings_data.sfx)
 
 	var lang = LANGUAGE_KEY[idx]
 	TranslationServer.set_locale(lang)
@@ -57,4 +63,14 @@ func _on_language_options_item_selected(index: int) -> void:
 
 	update_ui_text()
 	settings_data.language = lang
+	SaveManager.save_settings(settings_data)
+
+func _on_bgm_volume_h_slider_value_changed(value: float) -> void:
+	settings_data.bgm = value
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("BGM"), linear_to_db(value))
+	SaveManager.save_settings(settings_data)
+
+func _on_sfx_volume_h_slider_value_changed(value: float) -> void:
+	settings_data.sfx = value
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(value))
 	SaveManager.save_settings(settings_data)

@@ -1,5 +1,5 @@
-class_name SaveManager
 extends Node
+class_name SaveManager
 
 const SETTINGS_SAVE_PATH: String = "user://settings.tres"
 const USER_SAVE_PATH: String = "user://save.tres"

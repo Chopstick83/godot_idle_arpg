@@ -5,10 +5,11 @@ class_name SkillNode
 @onready var label: Label = $MarginContainer/Label
 @onready var line_2d: Line2D = $Line2D
 
-@export var max_level: int = 4
+@export var max_level: int = 1 # min 1
 @export var id: String
 @export var title_key: String
 @export var desc_key: String
+@export var desc_param: Array # max_level개 (0레벨 포함). 변경 사항 툴팁용.
 
 const default_color = Color("#383838")
 const lined_color = Color("ffff3f")
@@ -19,7 +20,7 @@ var level: int = 0:
 	set(value):
 		level = value
 		label.text = str(level) + "/" + str(max_level)
-		SkillButtonTooltip.ChangeLevel(level)
+		SkillButtonTooltip.change_level(level, title_key, desc_key, desc_param)
 		if level > 0:
 			panel.show_behind_parent = true
 		else:
@@ -83,7 +84,7 @@ func _on_gui_input(event: InputEvent) -> void:
 			save_requested.emit(id, level)
 
 func _on_mouse_entered() -> void:
-	SkillButtonTooltip.ShowPopup(Rect2(Vector2(global_position), Vector2(size)), level, title_key, desc_key)
+	SkillButtonTooltip.ShowPopup(Rect2(Vector2(global_position), Vector2(size)), level, title_key, desc_key, desc_param)
 
 func _on_mouse_exited() -> void:
 	SkillButtonTooltip.HidePopup()

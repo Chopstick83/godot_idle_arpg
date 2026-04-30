@@ -18,32 +18,38 @@ extends Node2D
 @onready var exp_text: Label = $ExpProgressBar/ExpText
 
 var mummy_resource = preload("res://Enemy/mummy.tscn")
+var scorpion_resource = preload("res://Enemy/scorpion.tscn")
 var slime_resource = preload("res://Enemy/slime.tscn")
 var snake_resource = preload("res://Enemy/snake.tscn")
 var spider_resource = preload("res://Enemy/spider.tscn")
 var wolf_resource = preload("res://Enemy/wolf.tscn")
 
 var stage_resource = [
-	mummy_resource, slime_resource, snake_resource, spider_resource, wolf_resource
+	mummy_resource, scorpion_resource, slime_resource, snake_resource, spider_resource, wolf_resource
 ]
 
 @export var attack_effect_scene: PackedScene # 인스펙터에서 공격 이펙트 씬 할당
 
 var enemies_in_area: Array[Node2D] = []
 var is_mouse_hovering: bool = false
-const mouse_radius = 100
+var attack_radius_array = [10.0, 30.0, 50.0, 75.0, 100.0]
+var attack_radius_level = 0
+var wait_time_array = [5.0, 6.0, 7.0, 8.5, 10.0]
+var wait_time_level = 0
 var current_mouse_pos: Vector2
 
 var exp_label_base: String
 var user_save_data: UserSaveData
+var user_tree_data: UserTreeData
 
 func _draw() -> void:
 	if stage_timer.time_left > 0:
-		draw_circle(current_mouse_pos, mouse_radius, Color.AQUA, false, 2)
+		draw_circle(current_mouse_pos, attack_radius_array[attack_radius_level], Color.AQUA, false, 2)
 
 func _process(_delta: float) -> void:
+	var time_str = "%05.2f" % stage_timer.time_left
 	stage_timer_progress_bar.value = stage_timer.time_left
-	stage_time_left.text = "%05.2fs" % stage_timer.time_left
+	stage_time_left.text = tr("STAGE_COUNTER").format([time_str])
 	queue_redraw()
 
 func _physics_process(_delta: float) -> void:
@@ -54,15 +60,17 @@ func _ready() -> void:
 	return_to_base_button.text = tr("RETURN_TO_BASE")
 	exp_label_base = tr("EARNED_EXP")
 	
-	user_save_data = SaveManager.load_game()
-	
-	collision_shape_2d.shape.radius = mouse_radius
+	user_tree_data = SaveManager.load_skill()
+	attack_radius_level = user_tree_data.skills.get("EXPAND_ATTACK")
+	collision_shape_2d.shape.radius = attack_radius_array[attack_radius_level]
 
+	user_save_data = SaveManager.load_game()
 	exp_progress_bar.max_value = user_save_data.max_xp
 	exp_progress_bar.value = user_save_data.xp
 
 	reset_enemies()
-	reset_timer(user_save_data.wait_time)
+	wait_time_level = user_tree_data.skills.get("EXTEND_TIME")
+	reset_timer(wait_time_array[wait_time_level])
 
 func reset_enemies():
 	var num_enemies = 100
@@ -128,7 +136,8 @@ func _on_exp_progress_bar_value_changed(value: float) -> void:
 	update_exp_text(value)
 
 func update_exp_text(value):
-	exp_text.text = "Lv.%d - %d / %d" % [user_save_data.level, int(value), exp_progress_bar.max_value]
+	var level_text = tr("LEVEL").format([user_save_data.level])
+	exp_text.text = "%s - %d / %d" % [level_text, int(value), exp_progress_bar.max_value]
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if not enemies_in_area.has(area):
@@ -147,7 +156,7 @@ func _on_stage_timer_timeout() -> void:
 func _on_continue_battle_button_pressed() -> void:
 	result_panel.hide()
 	reset_enemies()
-	reset_timer(user_save_data.wait_time)
+	reset_timer(wait_time_array[wait_time_level])
 
 func _on_return_to_base_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://SkillTree/skill_tree.tscn")

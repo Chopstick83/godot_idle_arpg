@@ -28,16 +28,16 @@ func HidePopup():
 
 func change_level(level: int, title_key: String, desc_key: String, desc_param: Array):
 	if level == 0:
-		title_label.add_theme_color_override("font_color", Color("#333333"))
-		desc_label.add_theme_color_override("font_color", Color("#333333"))
-	else:
 		title_label.add_theme_color_override("font_color", Color("#ffffff"))
 		desc_label.add_theme_color_override("font_color", Color("#ffffff"))
+	else:
+		title_label.add_theme_color_override("font_color", Color.GOLDENROD)
+		desc_label.add_theme_color_override("font_color", Color.GOLDENROD)
 		
 	update_text(level, title_key, desc_key, desc_param)
 
 func update_text(level: int, title_key: String, desc_key: String, desc_param: Array):
-	title_label.text = tr(title_key)
+	title_label.text = tr(title_key) + " (Lv. " + str(level) + ")"
 
 	if desc_param.size() > 0:
 		if level == 0:

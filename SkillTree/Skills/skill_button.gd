@@ -5,11 +5,10 @@ class_name SkillNode
 @onready var label: Label = $MarginContainer/Label
 @onready var line_2d: Line2D = $Line2D
 
-@export var max_level: int = 1 # min 1
 @export var id: String
 @export var title_key: String
 @export var desc_key: String
-@export var desc_param: Array # max_level개 (0레벨 포함). 변경 사항 툴팁용.
+@export var desc_param: Array # 변경 사항 툴팁용.
 
 const default_color = Color("#383838")
 const lined_color = Color("ffff3f")
@@ -19,7 +18,7 @@ signal save_requested(id: String, level: int)
 var level: int = 0:
 	set(value):
 		level = value
-		label.text = str(level) + "/" + str(max_level)
+		label.text = str(level) + "/" + str(desc_param.size())
 		SkillButtonTooltip.change_level(level, title_key, desc_key, desc_param)
 		if level > 0:
 			panel.show_behind_parent = true
@@ -42,7 +41,7 @@ func _ready() -> void:
 	level = 0
 
 func _on_pressed() -> void:
-	if level >= max_level:
+	if level >= desc_param.size():
 		return
 
 	level = level+1

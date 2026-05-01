@@ -34,7 +34,6 @@ offset_left = 762.0
 offset_top = 152.0
 offset_right = 802.0
 offset_bottom = 192.0
-max_level = 4
 id = "EXTEND_TIME"
 title_key = "SKILL_TITLE_EXTEND_TIME"
 desc_key = "SKILL_DESC_EXTEND_TIME"
@@ -66,22 +65,22 @@ offset_left = 208.0
 offset_top = 348.0
 offset_right = 248.0
 offset_bottom = 388.0
-max_level = 4
 id = "EXPAND_ATTACK"
 title_key = "SKILL_TITLE_EXPAND_ATTACK_RADIUS"
 desc_key = "SKILL_DESC_EXPAND_ATTACK_RADIUS"
 desc_param = [30.0, 50.0, 75.0, 100.0]
 
-[node name="SkillButton" parent="Panel/ExpandAttackRange" unique_id=592792730 instance=ExtResource("1_qyskh")]
+[node name="FasterAttackSpeed" parent="Panel/ExpandAttackRange" unique_id=592792730 instance=ExtResource("1_qyskh")]
 layout_mode = 0
 offset_left = -37.0
 offset_top = -58.0
 offset_right = 3.0
 offset_bottom = -18.0
 disabled = true
-id = "11"
-title_key = "77"
-desc_key = "88"
+id = "FASTER_AS"
+title_key = "SKILL_TITLE_FASTER_AS"
+desc_key = "SKILL_DESC_FASTER_AS"
+desc_param = [0.4, 0.3, 0.2, 0.1]
 
 [node name="SkillButton2" parent="Panel/ExpandAttackRange" unique_id=1426582884 instance=ExtResource("1_qyskh")]
 layout_mode = 0

@@ -24,9 +24,10 @@ layout_mode = 2
 
 [node name="TitleLabel" type="Label" parent="PanelContainer/VBoxContainer" unique_id=971543648]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Title"
 
 [node name="DescLabel" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1838382831]
 layout_mode = 2
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 14
 text = "Desc"

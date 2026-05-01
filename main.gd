@@ -32,10 +32,13 @@ var stage_resource = [
 
 var enemies_in_area: Array[Node2D] = []
 var is_mouse_hovering: bool = false
+# 배열 index 0은 노드에 존재하지 않는 기본 값
 var attack_radius_array = [10.0, 30.0, 50.0, 75.0, 100.0]
 var attack_radius_level = 0
 var wait_time_array = [5.0, 6.0, 7.0, 8.5, 10.0]
 var wait_time_level = 0
+var attack_wait_time_array = [0.5, 0.4, 0.3, 0.2, 0.1]
+var attack_wait_time_level = 0
 var current_mouse_pos: Vector2
 
 var exp_label_base: String
@@ -62,7 +65,9 @@ func _ready() -> void:
 	
 	user_tree_data = SaveManager.load_skill()
 	attack_radius_level = user_tree_data.skills.get("EXPAND_ATTACK")
+	attack_wait_time_level = user_tree_data.skills.get("FASTER_AS")
 	collision_shape_2d.shape.radius = attack_radius_array[attack_radius_level]
+	attack_timer.wait_time = attack_wait_time_array[attack_wait_time_level]
 
 	user_save_data = SaveManager.load_game()
 	exp_progress_bar.max_value = user_save_data.max_xp

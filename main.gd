@@ -64,8 +64,8 @@ func _ready() -> void:
 	exp_label_base = tr("EARNED_EXP")
 	
 	user_tree_data = SaveManager.load_skill()
-	attack_radius_level = user_tree_data.skills.get("EXPAND_ATTACK")
-	attack_wait_time_level = user_tree_data.skills.get("FASTER_AS")
+	attack_radius_level = user_tree_data.skills.get("EXPAND_ATTACK", 0)
+	attack_wait_time_level = user_tree_data.skills.get("FASTER_AS", 0)
 	collision_shape_2d.shape.radius = attack_radius_array[attack_radius_level]
 	attack_timer.wait_time = attack_wait_time_array[attack_wait_time_level]
 
@@ -74,7 +74,7 @@ func _ready() -> void:
 	exp_progress_bar.value = user_save_data.xp
 
 	reset_enemies()
-	wait_time_level = user_tree_data.skills.get("EXTEND_TIME")
+	wait_time_level = user_tree_data.skills.get("EXTEND_TIME", 0)
 	reset_timer(wait_time_array[wait_time_level])
 
 func reset_enemies():
@@ -132,6 +132,10 @@ func get_exp(_exp: int):
 		exp_progress_bar.max_value += 100
 		
 		update_exp_text(user_save_data.xp)
+		
+		var skill = SaveManager.load_skill()
+		skill.unspend += 1
+		SaveManager.save_skill(skill)
 
 	# 이 부분 적 사망시에 호출되는 시그널이라 tween과 update_text로 사용하지 않도록 수정 필요
 	var tween = create_tween()
@@ -164,4 +168,7 @@ func _on_continue_battle_button_pressed() -> void:
 	reset_timer(wait_time_array[wait_time_level])
 
 func _on_return_to_base_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://SkillTree/skill_tree.tscn")
+
+func _on_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://SkillTree/skill_tree.tscn")

@@ -28,6 +28,18 @@ offset_right = 210.0
 offset_bottom = 75.0
 text = "Return To Main"
 
+[node name="PointLeftLabel" type="Label" parent="Panel" unique_id=1146869861]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -39.0
+offset_top = 12.0
+offset_right = 41.0
+offset_bottom = 35.0
+grow_horizontal = 2
+text = "Point Left:"
+
 [node name="ExtendTime" parent="Panel" unique_id=1047147698 instance=ExtResource("1_qyskh")]
 layout_mode = 0
 offset_left = 762.0
@@ -93,6 +105,22 @@ id = "22"
 title_key = "99"
 desc_key = "00"
 
+[node name="TempLevelResetButton" type="Button" parent="Panel" unique_id=1520780117]
+layout_mode = 0
+offset_left = 1106.0
+offset_top = 18.0
+offset_right = 1254.0
+offset_bottom = 49.0
+text = "Temp: Reset Level"
+
+[node name="ResetSkillPointButton" type="Button" parent="Panel" unique_id=246506634]
+layout_mode = 0
+offset_left = 754.0
+offset_top = 12.0
+offset_right = 902.0
+offset_bottom = 43.0
+text = "Reset Skill Points"
+
 [node name="BattleStartButton" type="Button" parent="." unique_id=1847335580]
 layout_mode = 0
 offset_left = 571.0
@@ -102,4 +130,6 @@ offset_bottom = 693.0
 text = "Battle Start"
 
 [connection signal="pressed" from="Panel/ReturnToMainButton" to="." method="_on_return_to_main_button_pressed"]
+[connection signal="pressed" from="Panel/TempLevelResetButton" to="." method="_on_temp_level_reset_button_pressed"]
+[connection signal="pressed" from="Panel/ResetSkillPointButton" to="." method="_on_reset_skill_point_button_pressed"]
 [connection signal="pressed" from="BattleStartButton" to="." method="_on_battle_start_button_pressed"]

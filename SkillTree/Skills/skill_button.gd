@@ -14,6 +14,8 @@ const default_color = Color("#383838")
 const lined_color = Color("ffff3f")
 
 signal save_requested(id: String, level: int)
+signal point_increased()
+signal point_decreased()
 
 var level: int = 0:
 	set(value):
@@ -43,6 +45,10 @@ func _ready() -> void:
 func _on_pressed() -> void:
 	if level >= desc_param.size():
 		return
+	
+	var parent = get_parent().get_parent() as SkillTree
+	if parent.user_tree_data.unspend == 0:
+		return
 
 	level = level+1
 	
@@ -56,6 +62,7 @@ func _on_pressed() -> void:
 		if skill is SkillNode and level == 1:
 			skill.disabled = false
 
+	point_decreased.emit()
 	save_requested.emit(id, level)
 
 func _on_gui_input(event: InputEvent) -> void:
@@ -64,7 +71,8 @@ func _on_gui_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 			if level > 1:
 				level -= 1
-			else:
+				point_increased.emit()
+			elif level == 1:
 				var all_child_empty = false
 				var child_skills = get_children()
 				for skill in child_skills:
@@ -80,6 +88,7 @@ func _on_gui_input(event: InputEvent) -> void:
 					if skill is SkillNode:
 						skill.disabled = true
 				line_2d.default_color = default_color
+				point_increased.emit()
 			save_requested.emit(id, level)
 
 func _on_mouse_entered() -> void:

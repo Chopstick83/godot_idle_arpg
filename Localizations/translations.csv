@@ -29,3 +29,5 @@ SKILL_TITLE_EXPAND_ATTACK_RADIUS,기본 공격 범위 증가,Expand Basic Attack
 SKILL_DESC_EXPAND_ATTACK_RADIUS,기본 공격 범위 반지름이 {0}로 증가합니다.,Increase basic attack radius to {0}.,,,,,,,,,
 SKILL_TITLE_FASTER_AS,공격 속도 증가,Faster Attack Speed,,,,,,,,,
 SKILL_DESC_FASTER_AS,기본 공격이 {0}초 마다 공격 합니다.,Basic attacks every {0} seconds.,,,,,,,,,
+SKILL_POINT_UNUSED,미사용 스킬 포인트: {0},Unused Skill Points: {0},,,,,,,,,
+RESET_SKILL_POINTS,스킬 포인트 초기화,Reset Skill Points,,,,,,,,,
